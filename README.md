@@ -10,7 +10,7 @@ You jot ideas into `todo.txt` as they come, by hand or by asking Claude to add t
 npx skills add frangeris/todo.txt
 ```
 
-To install it by hand instead, copy `SKILL.md` to `~/.claude/skills/todo.skill/SKILL.md`.
+To install it by hand instead, copy `SKILL.md` to `~/.claude/skills/todo-skill/SKILL.md`.
 
 ## Usage
 

@@ -1,5 +1,5 @@
 ---
-name: todo.skill
+name: todo-skill
 description: >-
   Add an item to the user's todo.txt backlog, or pick one from it and design it in plan mode. Use whenever the user asks to add or jot down something on their todo list (e.g. "add to my todo: retry failed syncs"), or to continue with, pick up, start, tackle or work on the next item or task from it, in any language and even if they never mention the file (e.g. "let's do the next one", "continue with the export thing", "what's next on my list, let's start it"). The items are deliberately vague one-liners, so picking one turns it into a designed feature through a short interview and a plan before any code is written, while adding one just appends the line. Do not use it to start a task the user already describes in full themselves.
 ---
