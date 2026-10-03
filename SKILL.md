@@ -1,7 +1,7 @@
 ---
 name: todo-skill
 description: >-
-  Add an item to the user's .todo/queue.md backlog, or pick one from it and design it in plan mode. Use whenever the user asks to add or jot down something on their todo list, with or without a mockup or screenshot (e.g. "add to my todo: retry failed syncs", "add this mockup to my todo: dark mode"), or to continue with, pick up, start, tackle or work on the next item or task from it, in any language and even if they never mention the file (e.g. "let's do the next one", "continue with the export thing", "what's next on my list, let's start it"). The items are deliberately vague one-liners, optionally with an image, so picking one turns it into a designed feature through a short interview and a plan before any code is written, while adding one just appends the line. Do not use it to start a task the user already describes in full themselves.
+  Manage the user's task backlog in .todo/queue.md. Use when they ask to add or jot down a task or idea on their todo list ("add to my todo: retry failed syncs", with or without a mockup), or to continue with the next one ("let's do the next one", "pick up the export task", "what's next on my list"), in any language and even if the file isn't mentioned. Adding appends one line; continuing designs the task in plan mode before any code. Skip tasks the user already describes in full.
 ---
 
 # todo-skill
