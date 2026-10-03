@@ -1,4 +1,4 @@
-# todo.skill
+# todo-skill
 
 A skill for Claude Code that turns the vague one-liners in your `todo.txt` backlog into designed features.
 
@@ -7,7 +7,7 @@ You jot ideas into `todo.txt` as they come, by hand or by asking Claude to add t
 ## Install
 
 ```sh
-npx skills add frangeris/todo.txt
+npx skills add frangeris/todo-skill
 ```
 
 To install it by hand instead, copy `SKILL.md` to `~/.claude/skills/todo-skill/SKILL.md`.
