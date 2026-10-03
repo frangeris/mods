@@ -1,4 +1,6 @@
-# todo-skill
+<p align="center">
+  <img src="assets/banner.svg" alt="Todo Skill: Turn one-liners into plans." />
+</p>
 
 A skill for Claude Code that turns the vague one-liners in your `.todo/queue.md` backlog into designed features.
 
