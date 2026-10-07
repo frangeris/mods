@@ -1,0 +1,7 @@
+{
+  "name": "todo",
+  "version": "0.1.0",
+  "author": { "name": "Frangeris Peguero" },
+  "description": "Shows the .todo/tasks.md backlog in Claude Code: a /todo pane, a next-item band above the prompt and a status line count.",
+  "types": "./types/index.d.ts"
+}

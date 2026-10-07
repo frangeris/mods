@@ -1,0 +1,13 @@
+{
+  "name": "todo-skill",
+  "owner": {
+    "name": "Frangeris Peguero"
+  },
+  "description": "A Claude Code skill and mod for the .todo/tasks.md backlog",
+  "plugins": [
+    {
+      "name": "todo",
+      "source": "./mod"
+    }
+  ]
+}
