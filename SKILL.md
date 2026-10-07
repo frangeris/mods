@@ -1,12 +1,12 @@
 ---
 name: todo-skill
 description: >-
-  Manage the user's task backlog in .todo/tasks.md. Use when they ask to add or jot down a task or idea on their todo list ("add to my todo: retry failed syncs", with or without a mockup), or to continue with the next one ("let's do the next one", "pick up the export task", "what's next on my list"), in any language and even if the file isn't mentioned. Adding appends one line; continuing designs the task in plan mode before any code. Skip tasks the user already describes in full.
+  Manage the user's task backlog in .todo/tasks.md. Use when they ask to add or jot down a task or idea on their todo list ("add to my todo: retry failed syncs", with or without a mockup), or to continue with the next one ("let's do the next one", "pick up the export task", "what's next on my list"), in any language and even if the file isn't mentioned. Adding appends one line; continuing implements simple tasks directly and, for big features, suggests designing them in plan mode before any code. Skip tasks the user already describes in full.
 ---
 
 # todo-skill
 
-The user keeps a backlog in `.todo/tasks.md`, inside a `.todo/` folder at the project root that also holds the images the items reference. Each item is a terse note written in a few seconds when an idea came up, so it is vague on purpose. When the user says to continue with something from that list, your job is to take that item and design the feature with them in plan mode, not to start coding. When they ask to add something to the list instead, see "Adding an item" at the end.
+The user keeps a backlog in `.todo/tasks.md`, inside a `.todo/` folder at the project root that also holds the images the items reference. Each item is a terse note written in a few seconds when an idea came up, so it is vague on purpose. When the user says to continue with something from that list, your job is to take that item and size it up: a simple one you just implement, while for a big feature you suggest designing it with them in plan mode before any code. When they ask to add something to the list instead, see "Adding an item" at the end.
 
 ## The file
 
@@ -49,11 +49,20 @@ Both flows start here. If there is a `todo.txt` at the project root and no `.tod
 - Quote the exact item before going further, so a wrong pick is caught at a glance.
 - Open every image the item references with `Read`, resolving paths relative to `.todo/tasks.md`. A mockup or screenshot says what the one-liner doesn't. If a file is missing, or the reference is a remote URL, which you can't read, say so and carry on with the text.
 
-## 2. Enter plan mode
+## 2. Decide how to proceed
 
-Call `EnterPlanMode`. If its schema isn't loaded, fetch it first with `ToolSearch` (`select:EnterPlanMode`). Plan mode keeps the design phase free of edits and puts the user's approval between the design and the build.
+Plan mode is a suggestion for big work, not a step every item goes through. Size the item from its line, its images and a quick look at the code:
 
-## 3. Interview before designing
+- **Simple:** a small, well-bounded change where the line and the code answer what's left, like a copy tweak, a rename, a small fix or a flag. Skip plan mode and the interview and implement it. Ask only about something that would otherwise block you. Once it is implemented and verified, close the item (see "Closing the item").
+- **Big:** a feature that spans several areas, adds stored data or settings, leaves open how something looks or behaves, or needs a mockup interpreted. Don't enter plan mode on your own: say in one line why it looks big and offer the choice with `AskUserQuestion`, "Plan it first" (recommended) or "Just implement it". Go on to step 3 only if they pick the plan. If they decline, implement it directly, asking only about what would block you, and close the item as above.
+- If the user already said how they want it ("plan it", "just do it"), follow that without asking.
+- If you can't tell which it is, treat it as big and offer the choice.
+
+## 3. Enter plan mode
+
+Only once the user has accepted the suggestion or asked for a plan, call `EnterPlanMode`. If its schema isn't loaded, fetch it first with `ToolSearch` (`select:EnterPlanMode`). Plan mode keeps the design phase free of edits and puts the user's approval between the design and the build.
+
+## 4. Interview before designing
 
 A one-line item hides most of the intent. If you go straight from the line to a design, you fill the gaps with guesses and the user rejects the plan, which costs a whole cycle. A few questions up front cost much less.
 
@@ -67,20 +76,24 @@ First skim just enough of the code and docs to ask informed questions and avoid 
 
 Use `AskUserQuestion` for choices with real alternatives, up to four questions per round, with your recommendation first. For anything visual or about layout, ask instead of inventing: the user decides how it looks. An image on the item is a starting point, not a spec, so still ask about what it doesn't settle. Keep going while the answers open new questions, and stop once you could explain the feature back in a short paragraph.
 
-## 4. Explore and write the plan
+## 5. Explore and write the plan
 
 Now explore the codebase properly: where the feature plugs in and which existing patterns to reuse. Then write the plan:
 
 - The feature as agreed, with the decisions from the interview.
 - The files and areas to change, in order.
 - How to verify it works.
-- A last step: move the exact item from Queue to the top of Done in `.todo/tasks.md` once the feature is implemented and verified.
+- A last step: move the exact item from Queue to the top of Done in `.todo/tasks.md` once the feature is implemented and verified, written out in full as described in "Closing the item".
 
-That last step turns the item into `- [x]` and appends the short hash of the commit that implemented it to the end of its first line, e.g. `- [x] dark mode (a1b2c3d)`. The hash only exists once the work is committed, so the step comes after that commit; read it with `git rev-parse --short HEAD`. If there is no commit (not a git repo, or the user isn't committing yet), move the item without a hash. Don't create or amend a commit just for this edit.
-
-The step goes in the plan because plan mode can't edit and this skill's instructions may be out of context by the time the work is done. Move only that one item, keep its text and image references as they are, leave the image files alone, and leave the rest of the file untouched. If the user drops or postpones the item, leave it in Queue.
+The step goes in the plan because plan mode can't edit and this skill's instructions may be out of context by the time the work is done.
 
 Finish with `ExitPlanMode` so the user can approve the plan.
+
+## Closing the item
+
+Once the item is implemented and verified, whether directly or through a plan, move the exact item from Queue to the top of Done in `.todo/tasks.md`. This turns it into `- [x]` and appends the short hash of the commit that implemented it to the end of its first line, e.g. `- [x] dark mode (a1b2c3d)`. The hash only exists once the work is committed, so this comes after that commit; read it with `git rev-parse --short HEAD`. If there is no commit (not a git repo, or the user isn't committing yet), move the item without a hash. Don't create or amend a commit just for this edit.
+
+Move only that one item, keep its text and image references as they are, leave the image files alone, and leave the rest of the file untouched. If the user drops or postpones the item, leave it in Queue.
 
 ## Adding an item
 

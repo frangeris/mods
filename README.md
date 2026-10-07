@@ -4,7 +4,7 @@
 
 A skill for Claude Code that turns the vague one-liners in your `.todo/tasks.md` backlog into designed features.
 
-You jot ideas into `.todo/tasks.md` as they come, by hand or by asking Claude to add them, optionally with a mockup or screenshot. When you tell Claude to continue with one, it picks the item, enters plan mode, interviews you about what the line leaves open, and writes a plan you approve before any code is written. Finished items move from Queue to Done, tagged with the commit that implemented them.
+You jot ideas into `.todo/tasks.md` as they come, by hand or by asking Claude to add them, optionally with a mockup or screenshot. When you tell Claude to continue with one, it picks the item and sizes it up. A simple item is just implemented. For a big feature it suggests plan mode, and if you accept it interviews you about what the line leaves open and writes a plan you approve before any code is written. Finished items move from Queue to Done, tagged with the commit that implemented them.
 
 ## Install
 
@@ -31,8 +31,9 @@ To install it by hand instead, copy `SKILL.md` to `~/.claude/skills/todo-skill/S
    ```
 
 2. Ask Claude to continue with an item, in your own words: "let's do the next one", "continue with the csv thing".
-3. Claude quotes the item it picked, enters plan mode and asks questions until the feature is clear.
-4. Approve the plan. Its last step moves the item to the top of Done once the work is implemented and verified, checked off and tagged with the short hash of the commit that implemented it: `- [x] retry failed syncs (a1b2c3d)`. Without a commit, it moves without a hash.
+3. Claude quotes the item it picked and sizes it up. If it is simple, it implements it right away. If it looks like a big feature, it suggests plan mode and lets you choose between planning first or just implementing. Say "plan it" or "just do it" up front to skip the question.
+4. If you accept plan mode, Claude asks questions until the feature is clear and writes a plan for you to approve.
+5. Once the work is implemented and verified, the item moves to the top of Done, checked off and tagged with the short hash of the commit that implemented it: `- [x] retry failed syncs (a1b2c3d)`. With a plan, this is its last step. Without a commit, it moves without a hash.
 
 If you drop or postpone an item, it stays in Queue.
 
